@@ -146,7 +146,7 @@ export class UsersController {
   async updateUser(req: Request, res: Response): Promise<Response> {
     const updateUserDto = new UpdateUserDTO(req.body);
     const profilePhoto = req.file;
-    const { userId } = req.body;
+    const userId = res.locals.userId;
 
     const userService = container.resolve(UserService);
     await userService.updateUser(
@@ -184,7 +184,7 @@ export class UsersController {
    */
   async delete(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
-    const { userId } = req.body;
+    const userId = res.locals.userId;
 
     const userService = container.resolve(UserService);
     await userService.deleteUser(id, userId);
