@@ -6,8 +6,6 @@ import { UpdateUser } from '../dtos/UpdateUserDTO';
 import { omit } from '../../shared/util/Omit';
 import Conflict from '../../shared/errors/conflict';
 import NotFound from '../../shared/errors/notFound';
-import { addAudit } from '../../shared/infra/mongo/addAudit';
-import { addLog } from '../../shared/infra/mongo/addLog';
 
 @injectable()
 export class UserService {
@@ -23,20 +21,12 @@ export class UserService {
     const userAlreadyExists = await this.userRepository.findByEmail(data.email);
 
     if (userAlreadyExists) {
-      await addLog({
-        log: 'Conflict',
-        message: 'User already exists',
-      });
       throw new Conflict('User already exists');
     }
 
     const cpfAlreadyExists = await this.userRepository.findByCpf(data.cpf);
 
     if (cpfAlreadyExists) {
-      await addLog({
-        log: 'Conflict',
-        message: 'CPF already exists',
-      });
       throw new Conflict('CPF already exists');
     }
 
@@ -45,38 +35,19 @@ export class UserService {
       profilePhoto: profilePhoto?.filename ?? '',
     });
 
-    await addAudit({
-      module: 'User',
-      feature: 'Create',
-      oldData: {},
-      newData: createdUser,
-    });
-
     return omit(createdUser, ['password']);
   }
 
-  async deleteUser(id: string, userId: string) {
+  async deleteUser(id: string) {
     const user = await this.findByIdUser(id);
 
     await this.userRepository.delete(user.id);
-
-    await addAudit({
-      userId,
-      module: 'User',
-      feature: 'Delete',
-      oldData: { user },
-      newData: {},
-    });
   }
 
   async findByIdUser(id: string) {
     const user = await this.userRepository.findById(id);
 
     if (!user) {
-      await addLog({
-        log: 'NotFound',
-        message: 'Not found any User with this id!',
-      });
       throw new NotFound('Not found any User with this id!');
     }
 
@@ -90,7 +61,6 @@ export class UserService {
   async updateUser(
     data: UpdateUser,
     profilePhoto: Express.Multer.File | undefined,
-    userId: string,
   ) {
     const user = await this.findByIdUser(data.id);
 
@@ -100,20 +70,12 @@ export class UserService {
     );
 
     if (checkEmailExists) {
-      await addLog({
-        log: 'Conflict',
-        message: 'Email already exists',
-      });
       throw new Conflict('Email already exists');
     }
 
     const cpfAlreadyExists = await this.userRepository.findByCpf(data.cpf);
 
     if (cpfAlreadyExists) {
-      await addLog({
-        log: 'Conflict',
-        message: 'CPF already exists',
-      });
       throw new Conflict('CPF already exists');
     }
 
@@ -125,14 +87,6 @@ export class UserService {
       email: data.email,
       biography: data.biography,
       profilePhoto: profilePhoto?.filename ?? '',
-    });
-
-    await addAudit({
-      userId,
-      module: 'User',
-      feature: 'Update',
-      oldData: { user },
-      newData: { data },
     });
   }
 }

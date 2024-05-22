@@ -146,14 +146,9 @@ export class UsersController {
   async updateUser(req: Request, res: Response): Promise<Response> {
     const updateUserDto = new UpdateUserDTO(req.body);
     const profilePhoto = req.file;
-    const userId = res.locals.userId;
 
     const userService = container.resolve(UserService);
-    await userService.updateUser(
-      updateUserDto.toObject(),
-      profilePhoto,
-      userId,
-    );
+    await userService.updateUser(updateUserDto.toObject(), profilePhoto);
 
     return res.status(200).json({ message: 'User updated successfully' });
   }
@@ -184,10 +179,9 @@ export class UsersController {
    */
   async delete(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
-    const userId = res.locals.userId;
 
     const userService = container.resolve(UserService);
-    await userService.deleteUser(id, userId);
+    await userService.deleteUser(id);
 
     return res.status(200).json({ message: 'User deleted successfully' });
   }
