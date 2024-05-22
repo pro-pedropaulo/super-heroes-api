@@ -8,6 +8,6 @@ interface CreateTokenParams {
 
 export function createToken(parameters: CreateTokenParams) {
   return sign(parameters, process.env.APP_SECRET || '', {
-    expiresIn: '1d',
+    expiresIn: '50m',
   });
 }
