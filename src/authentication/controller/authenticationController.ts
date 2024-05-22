@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 
 import { AuthenticationService } from '../services/authenticationService';
 import { LoginDTO } from '../dtos/LoginDTO';
+import { LogoutService } from '../services/logoutService';
 
 export class AuthenticationController {
   /**
@@ -51,5 +52,33 @@ export class AuthenticationController {
     });
 
     return response.json(token);
+  }
+
+  /**
+   * @swagger
+   * /auth/logout:
+   *   post:
+   *     summary: Realiza o logout de um usuário e adiciona seu token na blacklist
+   *     tags: [Authentication]
+   *     responses:
+   *       200:
+   *         description: Logout realizado com sucesso
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 message:
+   *                   type: string
+   *                   example: Logout sucessfully
+   */
+  async logout(request: Request, response: Response) {
+    const authHeader = request.headers['authorization'];
+
+    const logoutService = container.resolve(LogoutService);
+
+    await logoutService.execute(authHeader);
+
+    return response.json({ message: 'Logout sucessfully' });
   }
 }

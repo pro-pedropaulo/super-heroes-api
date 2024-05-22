@@ -39,12 +39,6 @@ app.use('/api/publishers', isAuth, PublisherRouter);
 app.use('/api/superpowers', isAuth, SuperpowerRouter);
 app.use('/api/hero-attributes', isAuth, HeroAttributeRouter);
 
-// Middleware de tratamento de erros
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  console.error(err.stack);
-  res.status(500).json({ message: err.message, error: err });
-});
-
 const PORT = process.env.PORT || 7000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
