@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import express, { Request, Response, NextFunction } from 'express';
+import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 
@@ -14,10 +14,12 @@ import { RaceRouter } from '../../../superheroes/race/routes/race.routes';
 import { SuperheroRouter } from '../../../superheroes/superhero/routes/superhero.routes';
 import { PublisherRouter } from '../../../superheroes/publisher/routes/publisher.routes';
 import { SuperpowerRouter } from '../../../superheroes/superpower/routes/superpower.routes';
+import { connectMongo } from '../mongo';
 
 import { isAuth } from './middlewares/IsAuth';
 
 import { HeroAttributeRouter } from '@/superheroes/heroAttribute/routes/hero-attributes.routes';
+import { logger } from '@/shared/container/providers/logger';
 
 const app = express();
 const swaggerSpec = swaggerJsdoc(swaggerConfig);
@@ -26,8 +28,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(express.json());
 
-// Aplica o middleware de autenticação nas rotas que requerem autenticação
-app.use('/users', UsersRouter);
+app.use('/api/users', UsersRouter);
 app.use('/api/auth', AuthenticationRouter);
 app.use('/api/alignments', isAuth, AlignmentRouter);
 app.use('/api/attributes', isAuth, AttributeRouter);
@@ -43,5 +44,9 @@ const PORT = process.env.PORT || 7000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+connectMongo()
+  .then(() => logger.info('🌳 Mongo Connected'))
+  .catch((error) => logger.error(`⛔ Mongo Connection Error: ${error}`));
 
 export { app };
