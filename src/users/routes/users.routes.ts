@@ -25,4 +25,8 @@ UsersRouter.delete('/:id', isAuth, (req, res) =>
   usersController.delete(req, res),
 );
 
+UsersRouter.patch('/:id', isAuth, (req, res) =>
+  usersController.activeUser(req, res),
+);
+
 export { UsersRouter };

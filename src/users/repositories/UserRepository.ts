@@ -6,6 +6,7 @@ import { AppDataSource } from '../../shared/infra/typeorm';
 import { hashPassword } from '../../shared/util/Password';
 import { AbstractTransactionRepository } from '../../shared/container/providers/transaction-manager/AbstractTransactionRepository';
 import { TransactionManager } from '../../shared/container/providers/transaction-manager/TransactionManager';
+import { ActiveUser } from '../dtos/ActiveUserDTO';
 
 import type {
   IUserRepository,
@@ -29,12 +30,22 @@ export class UserRepository
     const user = this.userRepository.create({
       ...data,
       password: hashPassword(data.password),
+      active: data.active ?? true,
     });
     return await this.userRepository.save(user);
   }
 
   async findById(id: string) {
     return await this.userRepository.findOne({ where: { id } });
+  }
+
+  async findByIdAndActive(id: string) {
+    return await this.userRepository.findOne({
+      where: {
+        id,
+        active: true,
+      },
+    });
   }
 
   async findByEmail(email: string) {
@@ -71,19 +82,23 @@ export class UserRepository
 
   async userLoginByEmail(email: string): Promise<User | null> {
     return await this.userRepository.findOne({
-      where: { email },
+      where: { email, active: true },
       select: ['id', 'email', 'name', 'password', 'cpf'],
     });
   }
 
   async userLoginByCpf(cpf: string): Promise<User | null> {
     return await this.userRepository.findOne({
-      where: { cpf },
+      where: { cpf, active: true },
       select: ['id', 'email', 'name', 'password', 'cpf'],
     });
   }
 
   async delete(id: string) {
     await this.userRepository.delete(id);
+  }
+
+  async active(data: ActiveUser) {
+    await this.userRepository.update({ id: data.id }, { active: data.active });
   }
 }

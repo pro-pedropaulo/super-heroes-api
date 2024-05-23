@@ -4,6 +4,7 @@ import { container } from 'tsyringe';
 import { UserService } from '../services/UserService';
 import { CreateUserDTO } from '../dtos/CreateUserDTO';
 import { UpdateUserDTO } from '../dtos/UpdateUserDTO';
+import { ActiveUserDTO } from '../dtos/ActiveUserDTO';
 
 export class UsersController {
   /**
@@ -146,9 +147,14 @@ export class UsersController {
   async updateUser(req: Request, res: Response): Promise<Response> {
     const updateUserDto = new UpdateUserDTO(req.body);
     const profilePhoto = req.file;
+    const userId = res.locals.userId;
 
     const userService = container.resolve(UserService);
-    await userService.updateUser(updateUserDto.toObject(), profilePhoto);
+    await userService.updateUser(
+      updateUserDto.toObject(),
+      profilePhoto,
+      userId,
+    );
 
     return res.status(200).json({ message: 'User updated successfully' });
   }
@@ -179,10 +185,57 @@ export class UsersController {
    */
   async delete(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
+    const userId = res.locals.userId;
 
     const userService = container.resolve(UserService);
-    await userService.deleteUser(id);
+    await userService.deleteUser(id, userId);
 
     return res.status(200).json({ message: 'User deleted successfully' });
+  }
+
+  /**
+   * @swagger
+   * /users/{id}/activate:
+   *   patch:
+   *     summary: Activate or deactivate a user
+   *     tags: [Users]
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         schema:
+   *           type: string
+   *         required: true
+   *         description: ID of the user
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             $ref: '#/components/schemas/ActiveUserDTO'
+   *     responses:
+   *       200:
+   *         description: Active status updated successfully
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 message:
+   *                   type: string
+   */
+  async activeUser(req: Request, res: Response): Promise<Response> {
+    const requestValidated = new ActiveUserDTO({
+      ...req.params,
+      ...req.body,
+    });
+
+    const userId = res.locals.userId;
+
+    const userService = container.resolve(UserService);
+    await userService.activeUser(requestValidated.toObject(), userId);
+
+    return res
+      .status(200)
+      .json({ message: 'Active status updated successfully' });
   }
 }

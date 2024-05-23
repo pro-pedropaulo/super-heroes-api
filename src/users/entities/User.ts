@@ -21,4 +21,7 @@ export class User extends AbstractEntity {
 
   @Column({ select: false })
   password: string;
+
+  @Column({ default: true })
+  active: boolean;
 }
