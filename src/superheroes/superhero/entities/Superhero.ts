@@ -34,35 +34,52 @@ export class Superhero {
   @Column({ name: 'weight_kg' })
   weightKg: number;
 
-  @ManyToOne(() => Gender, (gender) => gender.superheroes)
+  @ManyToOne(() => Gender, (gender) => gender.superheroes, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'gender_id' })
   gender: Gender;
 
-  @ManyToOne(() => Colour, (colour) => colour.superheroEyeColours)
+  @ManyToOne(() => Colour, (colour) => colour.superheroEyeColours, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'eye_colour_id' })
   eyeColour: Colour;
 
-  @ManyToOne(() => Colour, (colour) => colour.superheroHairColours)
+  @ManyToOne(() => Colour, (colour) => colour.superheroHairColours, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'hair_colour_id' })
   hairColour: Colour;
 
-  @ManyToOne(() => Colour, (colour) => colour.superheroSkinColours)
+  @ManyToOne(() => Colour, (colour) => colour.superheroSkinColours, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'skin_colour_id' })
   skinColour: Colour;
 
-  @ManyToOne(() => Race, (race) => race.superheroes)
+  @ManyToOne(() => Race, (race) => race.superheroes, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'race_id' })
   race: Race;
 
-  @ManyToOne(() => Publisher, (publisher) => publisher.superheroes)
+  @ManyToOne(() => Publisher, (publisher) => publisher.superheroes, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'publisher_id' })
   publisher: Publisher;
 
-  @ManyToOne(() => Alignment, (alignment) => alignment.superheroes)
+  @ManyToOne(() => Alignment, (alignment) => alignment.superheroes, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'alignment_id' })
   alignment: Alignment;
 
-  @OneToMany(() => HeroAttribute, (heroAttribute) => heroAttribute.superhero)
+  @OneToMany(() => HeroAttribute, (heroAttribute) => heroAttribute.superhero, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   heroAttributes: HeroAttribute[];
 
   @ManyToMany(() => Superpower, { cascade: true })
