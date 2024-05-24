@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
-import swaggerJsdoc from 'swagger-jsdoc';
 
-import swaggerConfig from '../../../config/swaggerConfig';
 import { UsersRouter } from '../../../users/routes/users.routes';
 import { AuthenticationRouter } from '../../../authentication/routes/authentication.routes';
 import { AlignmentRouter } from '../../../superheroes/alignment/routes/alignment.routes';
@@ -15,6 +13,7 @@ import { SuperheroRouter } from '../../../superheroes/superhero/routes/superhero
 import { PublisherRouter } from '../../../superheroes/publisher/routes/publisher.routes';
 import { SuperpowerRouter } from '../../../superheroes/superpower/routes/superpower.routes';
 import { connectMongo } from '../mongo';
+import swaggerDocument from '../../../../swagger/swagger_output.json';
 
 import { isAuth } from './middlewares/IsAuth';
 
@@ -22,10 +21,6 @@ import { HeroAttributeRouter } from '@/superheroes/heroAttribute/routes/hero-att
 import { logger } from '@/shared/container/providers/logger';
 
 const app = express();
-const swaggerSpec = swaggerJsdoc(swaggerConfig);
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
 app.use(express.json());
 
 app.use('/api/users', UsersRouter);
@@ -39,6 +34,8 @@ app.use('/api/superheroes', isAuth, SuperheroRouter);
 app.use('/api/publishers', isAuth, PublisherRouter);
 app.use('/api/superpowers', isAuth, SuperpowerRouter);
 app.use('/api/hero-attributes', isAuth, HeroAttributeRouter);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const PORT = process.env.PORT || 7000;
 app.listen(PORT, () => {

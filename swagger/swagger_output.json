@@ -3,7 +3,7 @@
   "info": {
     "version": "1.0.0",
     "title": "API",
-    "description": "Documentation of the system endpoints"
+    "description": "Documentation for the system endpoints ..."
   },
   "host": "localhost:5555",
   "basePath": "/",
@@ -26,20 +26,133 @@
       "type": "apiKey",
       "in": "header",
       "name": "Authorization",
-      "description": "Enter Bearer + your token"
+      "description": "Enter Bearer + the token you have"
     }
   },
   "paths": {
-    "/api/users/": {
-      "post": {
+    "/api/": {
+      "get": {
+        "tags": [
+          "Healtcheck"
+        ],
+        "summary": "Healtcheck",
         "description": "",
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/users/": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Adds a new User to the system",
+        "description": "",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "formData",
+            "type": "string",
+            "description": "User's name",
+            "required": true
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "type": "string",
+            "description": "User's email address",
+            "required": true
+          },
+          {
+            "name": "cpf",
+            "in": "formData",
+            "type": "string",
+            "description": "User's CPF",
+            "required": true
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "type": "string",
+            "description": "User's password",
+            "required": true
+          },
+          {
+            "name": "confirmPassword",
+            "in": "formData",
+            "type": "string",
+            "description": "User's password confirmation",
+            "required": true
+          },
+          {
+            "name": "biography",
+            "in": "formData",
+            "type": "string",
+            "description": "User's biography",
+            "required": false
+          },
+          {
+            "name": "profilePhoto",
+            "in": "formData",
+            "type": "file",
+            "description": "User's profile photo",
+            "required": false
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "cpf": {
+                  "type": "string",
+                  "example": "12220030040"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "teste"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "teste@teste.com"
+                },
+                "profilePhoto": {
+                  "type": "string",
+                  "example": "80fab12a-c440-4622-9231-972f1831f1c4.teste.png"
+                },
+                "biography": {
+                  "type": "string",
+                  "example": "Biography"
+                },
+                "id": {
+                  "type": "string",
+                  "example": "c8a52a75-2599-4bc2-b700-83c80af968f3"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2024-05-01T19:49:04.025Z"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2024-05-01T19:49:04.025Z"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Created"
           }
         }
       },
       "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Fetches all Users",
         "description": "",
         "parameters": [
           {
@@ -49,21 +162,71 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "cpf": {
+                  "type": "string",
+                  "example": "12220030040"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "teste"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "teste@teste.com"
+                },
+                "profilePhoto": {
+                  "type": "string",
+                  "example": "80fab12a-c440-4622-9231-972f1831f1c4.teste.png"
+                },
+                "biography": {
+                  "type": "string",
+                  "example": "Biography"
+                },
+                "id": {
+                  "type": "string",
+                  "example": "c8a52a75-2599-4bc2-b700-83c80af968f3"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2024-05-01T19:49:04.025Z"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2024-05-01T19:49:04.025Z"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/users/{id}": {
       "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Fetches a User by ID",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "User's ID"
           },
           {
             "name": "authorization",
@@ -72,12 +235,61 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "cpf": {
+                  "type": "string",
+                  "example": "12220030040"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "teste"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "teste@teste.com"
+                },
+                "profilePhoto": {
+                  "type": "string",
+                  "example": "80fab12a-c440-4622-9231-972f1831f1c4.teste.png"
+                },
+                "biography": {
+                  "type": "string",
+                  "example": "Biography"
+                },
+                "id": {
+                  "type": "string",
+                  "example": "c8a52a75-2599-4bc2-b700-83c80af968f3"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2024-05-01T19:49:04.025Z"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2024-05-01T19:49:04.025Z"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Updates an existing User",
         "description": "",
         "parameters": [
           {
@@ -90,22 +302,86 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "type": "string",
+            "description": "User's name",
+            "required": true
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "type": "string",
+            "description": "User's email address",
+            "required": true
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "type": "string",
+            "description": "User's password",
+            "required": true
+          },
+          {
+            "name": "confirmPassword",
+            "in": "formData",
+            "type": "string",
+            "description": "User's password confirmation",
+            "required": true
+          },
+          {
+            "name": "biography",
+            "in": "formData",
+            "type": "string",
+            "description": "User's biography",
+            "required": false
+          },
+          {
+            "name": "profilePhoto",
+            "in": "formData",
+            "type": "file",
+            "description": "User's profile photo",
+            "required": false
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "201": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User updated successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Created"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Deletes a User by ID",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "User's ID"
           },
           {
             "name": "authorization",
@@ -114,45 +390,163 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User deleted successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Activates or deactivates a User by ID",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "User's ID"
           },
           {
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "true or false",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "active": {
+                  "type": "boolean",
+                  "example": true
+                }
+              }
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Active status updated successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/api/auth/": {
+    "/api/login/": {
       "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Logs in a user using email or CPF",
         "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "email@teste.com"
+                },
+                "cpf": {
+                  "type": "string",
+                  "example": "12250060040"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "123123@Ssr"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string",
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cC"
+                },
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "cpf": {
+                      "type": "string",
+                      "example": "12250060040"
+                    },
+                    "userId": {
+                      "type": "string",
+                      "example": "a606d75b-2cc4-451a-85ed-9a31fe5b8bd4"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "userName"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "email@teste.com"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
         }
       }
     },
-    "/api/auth/logout": {
+    "/api/login/logout": {
       "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Logs out a user and adds their token to the blacklist",
         "description": "",
         "parameters": [
           {
@@ -162,29 +556,83 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Logout successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
         }
       }
     },
-    "/api/alignments/": {
+    "/api/attribute/": {
       "post": {
+        "tags": [
+          "Attribute"
+        ],
+        "summary": "Adds a new Attribute to the system",
         "description": "",
         "parameters": [
           {
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "attributeName": {
+                  "type": "string",
+                  "example": "NewAttribute"
+                }
+              }
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "201": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "attributeName": {
+                  "type": "string",
+                  "example": "NewAttribute"
+                },
+                "id": {
+                  "type": "number",
+                  "example": 7
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Created"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "get": {
+        "tags": [
+          "Attribute"
+        ],
+        "summary": "Fetches all Attributes",
         "description": "",
         "parameters": [
           {
@@ -194,21 +642,50 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "attributeName": {
+                    "type": "string",
+                    "example": "Intelligence"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/api/alignments/{id}": {
+    "/api/attribute/{id}": {
       "get": {
+        "tags": [
+          "Attribute"
+        ],
+        "summary": "Fetches an Attribute by ID",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "Attribute's ID"
           },
           {
             "name": "authorization",
@@ -217,40 +694,101 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 7
+                },
+                "attributeName": {
+                  "type": "string",
+                  "example": "attributeName"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "put": {
+        "tags": [
+          "Attribute"
+        ],
+        "summary": "Updates an existing Attribute",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "Attribute's ID"
           },
           {
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "attributeName": {
+                  "type": "string",
+                  "example": "UpdatedAttributeName"
+                }
+              }
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Attribute updated successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "delete": {
+        "tags": [
+          "Attribute"
+        ],
+        "summary": "Deletes an Attribute by ID",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "Attribute's ID"
           },
           {
             "name": "authorization",
@@ -259,29 +797,88 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Attribute deleted successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/api/attributes/": {
+    "/api/superpower/": {
       "post": {
+        "tags": [
+          "Superpower"
+        ],
+        "summary": "Adds a new Superpower to the system",
         "description": "",
         "parameters": [
           {
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "powerName": {
+                  "type": "string",
+                  "example": "NewPowerName"
+                }
+              }
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "201": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "powerName": {
+                  "type": "string",
+                  "example": "NewPowerName"
+                },
+                "id": {
+                  "type": "number",
+                  "example": 168
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Created"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "get": {
+        "tags": [
+          "Superpower"
+        ],
+        "summary": "Fetches all Superpowers",
         "description": "",
         "parameters": [
           {
@@ -291,21 +888,50 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 168
+                  },
+                  "powerName": {
+                    "type": "string",
+                    "example": "NewPowerName"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/api/attributes/{id}": {
+    "/api/superpower/{id}": {
       "get": {
+        "tags": [
+          "Superpower"
+        ],
+        "summary": "Fetches a Superpower by ID",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "Superpower's ID"
           },
           {
             "name": "authorization",
@@ -314,40 +940,101 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 168
+                },
+                "powerName": {
+                  "type": "string",
+                  "example": "NewPowerName"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "put": {
+        "tags": [
+          "Superpower"
+        ],
+        "summary": "Updates an existing Superpower",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "Superpower's ID"
           },
           {
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "powerName": {
+                  "type": "string",
+                  "example": "UpdatedPowerName"
+                }
+              }
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Superpower updated successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "delete": {
+        "tags": [
+          "Superpower"
+        ],
+        "summary": "Deletes a Superpower by ID",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "Superpower's ID"
           },
           {
             "name": "authorization",
@@ -356,29 +1043,88 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Superpower deleted successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/api/colours/": {
+    "/api/alignment/": {
       "post": {
+        "tags": [
+          "Alignment"
+        ],
+        "summary": "Adds a new Alignment to the system",
         "description": "",
         "parameters": [
           {
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "alignment": {
+                  "type": "string",
+                  "example": "AlignmentName"
+                }
+              }
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "201": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "alignment": {
+                  "type": "string",
+                  "example": "AlignmentName"
+                },
+                "id": {
+                  "type": "number",
+                  "example": 5
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Created"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "get": {
+        "tags": [
+          "Alignment"
+        ],
+        "summary": "Fetches all Alignments",
         "description": "",
         "parameters": [
           {
@@ -388,21 +1134,50 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 5
+                  },
+                  "alignment": {
+                    "type": "string",
+                    "example": "AlignmentName"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/api/colours/{id}": {
+    "/api/alignment/{id}": {
       "get": {
+        "tags": [
+          "Alignment"
+        ],
+        "summary": "Fetches an Alignment by ID",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "Alignment's ID"
           },
           {
             "name": "authorization",
@@ -411,40 +1186,101 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 5
+                },
+                "alignment": {
+                  "type": "string",
+                  "example": "AlignmentName"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "put": {
+        "tags": [
+          "Alignment"
+        ],
+        "summary": "Updates an existing Alignment",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "Alignment's ID"
           },
           {
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "alignment": {
+                  "type": "string",
+                  "example": "UpdatedAlignmentName"
+                }
+              }
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Alignment updated successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "delete": {
+        "tags": [
+          "Alignment"
+        ],
+        "summary": "Deletes an Alignment by ID",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "Alignment's ID"
           },
           {
             "name": "authorization",
@@ -453,29 +1289,88 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Alignment deleted successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/api/genders/": {
+    "/api/gender/": {
       "post": {
+        "tags": [
+          "Gender"
+        ],
+        "summary": "Adds a new Gender to the system",
         "description": "",
         "parameters": [
           {
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "gender": {
+                  "type": "string",
+                  "example": "GenderName"
+                }
+              }
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "201": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "gender": {
+                  "type": "string",
+                  "example": "GenderName"
+                },
+                "id": {
+                  "type": "number",
+                  "example": 4
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Created"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "get": {
+        "tags": [
+          "Gender"
+        ],
+        "summary": "Fetches all Genders",
         "description": "",
         "parameters": [
           {
@@ -485,21 +1380,50 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 4
+                  },
+                  "gender": {
+                    "type": "string",
+                    "example": "GenderName"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/api/genders/{id}": {
+    "/api/gender/{id}": {
       "get": {
+        "tags": [
+          "Gender"
+        ],
+        "summary": "Fetches a Gender by ID",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "Gender's ID"
           },
           {
             "name": "authorization",
@@ -508,40 +1432,101 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 4
+                },
+                "gender": {
+                  "type": "string",
+                  "example": "GenderName"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "put": {
+        "tags": [
+          "Gender"
+        ],
+        "summary": "Updates an existing Gender",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "Gender's ID"
           },
           {
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "gender": {
+                  "type": "string",
+                  "example": "UpdatedGenderName"
+                }
+              }
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Gender updated successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "delete": {
+        "tags": [
+          "Gender"
+        ],
+        "summary": "Deletes a Gender by ID",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "Gender's ID"
           },
           {
             "name": "authorization",
@@ -550,29 +1535,88 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Gender deleted successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/api/races/": {
+    "/api/colour/": {
       "post": {
+        "tags": [
+          "Colour"
+        ],
+        "summary": "Adds a new Colour to the system",
         "description": "",
         "parameters": [
           {
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "colour": {
+                  "type": "string",
+                  "example": "ColourName"
+                }
+              }
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "201": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "colour": {
+                  "type": "string",
+                  "example": "ColourName"
+                },
+                "id": {
+                  "type": "number",
+                  "example": 36
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Created"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "get": {
+        "tags": [
+          "Colour"
+        ],
+        "summary": "Fetches all Colours",
         "description": "",
         "parameters": [
           {
@@ -582,21 +1626,50 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 36
+                  },
+                  "colour": {
+                    "type": "string",
+                    "example": "ColourName"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/api/races/{id}": {
+    "/api/colour/{id}": {
       "get": {
+        "tags": [
+          "Colour"
+        ],
+        "summary": "Fetches a Colour by ID",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "Colour's ID"
           },
           {
             "name": "authorization",
@@ -605,40 +1678,101 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 36
+                },
+                "colour": {
+                  "type": "string",
+                  "example": "ColourName"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "put": {
+        "tags": [
+          "Colour"
+        ],
+        "summary": "Updates an existing Colour",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "Colour's ID"
           },
           {
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "colour": {
+                  "type": "string",
+                  "example": "UpdatedColourName"
+                }
+              }
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Colour updated successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "delete": {
+        "tags": [
+          "Colour"
+        ],
+        "summary": "Deletes a Colour by ID",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "Colour's ID"
           },
           {
             "name": "authorization",
@@ -647,29 +1781,88 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Colour deleted successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/api/superheroes/": {
+    "/api/race/": {
       "post": {
+        "tags": [
+          "Race"
+        ],
+        "summary": "Adds a new Race to the system",
         "description": "",
         "parameters": [
           {
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "race": {
+                  "type": "string",
+                  "example": "RaceName"
+                }
+              }
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "201": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "race": {
+                  "type": "string",
+                  "example": "RaceName"
+                },
+                "id": {
+                  "type": "number",
+                  "example": 62
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Created"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "get": {
+        "tags": [
+          "Race"
+        ],
+        "summary": "Fetches all Races",
         "description": "",
         "parameters": [
           {
@@ -679,21 +1872,50 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 62
+                  },
+                  "race": {
+                    "type": "string",
+                    "example": "RaceName"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/api/superheroes/{id}": {
+    "/api/race/{id}": {
       "get": {
+        "tags": [
+          "Race"
+        ],
+        "summary": "Fetches a Race by ID",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "Race's ID"
           },
           {
             "name": "authorization",
@@ -702,40 +1924,101 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 62
+                },
+                "race": {
+                  "type": "string",
+                  "example": "RaceName"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "put": {
+        "tags": [
+          "Race"
+        ],
+        "summary": "Updates an existing Race",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "Race's ID"
           },
           {
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "race": {
+                  "type": "string",
+                  "example": "UpdatedRaceName"
+                }
+              }
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Race updated successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "delete": {
+        "tags": [
+          "Race"
+        ],
+        "summary": "Deletes a Race by ID",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "Race's ID"
           },
           {
             "name": "authorization",
@@ -744,46 +2027,88 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Race deleted successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/api/superheroes/battle": {
+    "/api/publisher/": {
       "post": {
+        "tags": [
+          "Publisher"
+        ],
+        "summary": "Adds a new Publisher to the system",
         "description": "",
         "parameters": [
           {
             "name": "authorization",
             "in": "header",
             "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/publishers/": {
-      "post": {
-        "description": "",
-        "parameters": [
+          },
           {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "publisher": {
+                  "type": "string",
+                  "example": "PublisherName"
+                }
+              }
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "201": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "publisher": {
+                  "type": "string",
+                  "example": "PublisherName"
+                },
+                "id": {
+                  "type": "number",
+                  "example": 26
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Created"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "get": {
+        "tags": [
+          "Publisher"
+        ],
+        "summary": "Fetches all Publishers",
         "description": "",
         "parameters": [
           {
@@ -793,21 +2118,50 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 26
+                  },
+                  "publisher": {
+                    "type": "string",
+                    "example": "PublisherName"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/api/publishers/{id}": {
+    "/api/publisher/{id}": {
       "get": {
+        "tags": [
+          "Publisher"
+        ],
+        "summary": "Fetches a Publisher by ID",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "Publisher's ID"
           },
           {
             "name": "authorization",
@@ -816,40 +2170,101 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 26
+                },
+                "publisher": {
+                  "type": "string",
+                  "example": "PublisherName"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "put": {
+        "tags": [
+          "Publisher"
+        ],
+        "summary": "Updates an existing Publisher",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "Publisher's ID"
           },
           {
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "publisher": {
+                  "type": "string",
+                  "example": "UpdatedPublisherName"
+                }
+              }
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Publisher updated successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "delete": {
+        "tags": [
+          "Publisher"
+        ],
+        "summary": "Deletes a Publisher by ID",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "Publisher's ID"
           },
           {
             "name": "authorization",
@@ -858,29 +2273,134 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Publisher deleted successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/api/superpowers/": {
+    "/api/hero-attribute/": {
       "post": {
+        "tags": [
+          "HeroAttribute"
+        ],
+        "summary": "Adds a new HeroAttribute to the system",
         "description": "",
         "parameters": [
           {
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "attributeValue": {
+                  "type": "number",
+                  "example": 30
+                },
+                "superhero": {
+                  "type": "number",
+                  "example": 1
+                },
+                "attribute": {
+                  "type": "number",
+                  "example": 1
+                }
+              }
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "201": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "attributeValue": {
+                  "type": "number",
+                  "example": 30
+                },
+                "superhero": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "superheroName": {
+                      "type": "string",
+                      "example": "3-D Man"
+                    },
+                    "fullName": {
+                      "type": "string",
+                      "example": "Charles Chandler"
+                    },
+                    "heightCm": {
+                      "type": "number",
+                      "example": 188
+                    },
+                    "weightKg": {
+                      "type": "number",
+                      "example": 90
+                    }
+                  }
+                },
+                "attribute": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "attributeName": {
+                      "type": "string",
+                      "example": "Intelligence"
+                    }
+                  }
+                },
+                "id": {
+                  "type": "number",
+                  "example": 3739
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Created"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "get": {
+        "tags": [
+          "HeroAttribute"
+        ],
+        "summary": "Fetches all HeroAttributes",
         "description": "",
         "parameters": [
           {
@@ -890,21 +2410,88 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 3739
+                  },
+                  "attributeValue": {
+                    "type": "number",
+                    "example": 30
+                  },
+                  "superhero": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "superheroName": {
+                        "type": "string",
+                        "example": "3-D Man"
+                      },
+                      "fullName": {
+                        "type": "string",
+                        "example": "Charles Chandler"
+                      },
+                      "heightCm": {
+                        "type": "number",
+                        "example": 188
+                      },
+                      "weightKg": {
+                        "type": "number",
+                        "example": 90
+                      }
+                    }
+                  },
+                  "attribute": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "attributeName": {
+                        "type": "string",
+                        "example": "Intelligence"
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/api/superpowers/{id}": {
+    "/api/hero-attribute/{id}": {
       "get": {
+        "tags": [
+          "HeroAttribute"
+        ],
+        "summary": "Fetches a HeroAttribute by ID",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "HeroAttribute's ID"
           },
           {
             "name": "authorization",
@@ -913,40 +2500,147 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 3739
+                },
+                "attributeValue": {
+                  "type": "number",
+                  "example": 30
+                },
+                "superhero": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "superheroName": {
+                      "type": "string",
+                      "example": "3-D Man"
+                    },
+                    "fullName": {
+                      "type": "string",
+                      "example": "Charles Chandler"
+                    },
+                    "heightCm": {
+                      "type": "number",
+                      "example": 188
+                    },
+                    "weightKg": {
+                      "type": "number",
+                      "example": 90
+                    }
+                  }
+                },
+                "attribute": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "attributeName": {
+                      "type": "string",
+                      "example": "Intelligence"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "put": {
+        "tags": [
+          "HeroAttribute"
+        ],
+        "summary": "Updates an existing HeroAttribute",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "HeroAttribute's ID"
           },
           {
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "attributeValue": {
+                  "type": "number",
+                  "example": 50
+                },
+                "superhero": {
+                  "type": "number",
+                  "example": 2
+                },
+                "attribute": {
+                  "type": "number",
+                  "example": 2
+                }
+              }
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "HeroAttribute updated successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "delete": {
+        "tags": [
+          "HeroAttribute"
+        ],
+        "summary": "Deletes a HeroAttribute by ID",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "description": "HeroAttribute's ID"
           },
           {
             "name": "authorization",
@@ -955,10 +2649,912 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "HeroAttribute deleted successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/superhero/": {
+      "post": {
+        "tags": [
+          "Superhero"
+        ],
+        "summary": "Adds a new Superhero to the system",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "superheroName": {
+                  "type": "string",
+                  "example": "NewHeroName"
+                },
+                "fullName": {
+                  "type": "string",
+                  "example": "NewHeroFullName"
+                },
+                "heightCm": {
+                  "type": "number",
+                  "example": 100
+                },
+                "weightKg": {
+                  "type": "number",
+                  "example": 50
+                },
+                "gender": {
+                  "type": "number",
+                  "example": 1
+                },
+                "eyeColour": {
+                  "type": "number",
+                  "example": 1
+                },
+                "hairColour": {
+                  "type": "number",
+                  "example": 2
+                },
+                "skinColour": {
+                  "type": "number",
+                  "example": 3
+                },
+                "race": {
+                  "type": "number",
+                  "example": 1
+                },
+                "publisher": {
+                  "type": "number",
+                  "example": 1
+                },
+                "alignment": {
+                  "type": "number",
+                  "example": 1
+                },
+                "superpowers": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "powerId": {
+                        "type": "number",
+                        "example": 2
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "superheroName": {
+                  "type": "string",
+                  "example": "NewHeroName"
+                },
+                "fullName": {
+                  "type": "string",
+                  "example": "NewHeroFullName"
+                },
+                "heightCm": {
+                  "type": "number",
+                  "example": 100
+                },
+                "weightKg": {
+                  "type": "number",
+                  "example": 50
+                },
+                "gender": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "gender": {
+                      "type": "string",
+                      "example": "Male"
+                    }
+                  }
+                },
+                "eyeColour": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "colour": {
+                      "type": "string",
+                      "example": "No Colour"
+                    }
+                  }
+                },
+                "hairColour": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 2
+                    },
+                    "colour": {
+                      "type": "string",
+                      "example": "Amber"
+                    }
+                  }
+                },
+                "skinColour": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 3
+                    },
+                    "colour": {
+                      "type": "string",
+                      "example": "Auburn"
+                    }
+                  }
+                },
+                "race": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "race": {
+                      "type": "string",
+                      "example": "-"
+                    }
+                  }
+                },
+                "publisher": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "publisher": {
+                      "type": "string",
+                      "example": ""
+                    }
+                  }
+                },
+                "alignment": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "alignment": {
+                      "type": "string",
+                      "example": "Good"
+                    }
+                  }
+                },
+                "superpowers": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 2
+                      },
+                      "powerName": {
+                        "type": "string",
+                        "example": "Accelerated Healing"
+                      }
+                    }
+                  }
+                },
+                "id": {
+                  "type": "number",
+                  "example": 10
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Created"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Superhero"
+        ],
+        "summary": "Fetches all Superheros",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "path",
+            "type": "number",
+            "description": "Page number to access",
+            "required": false
+          },
+          {
+            "name": "size",
+            "in": "path",
+            "type": "number",
+            "description": "Number of items to fetch",
+            "required": false
+          },
+          {
+            "name": "attributeValue",
+            "in": "path",
+            "type": "number",
+            "description": "Order option for attributeValue - DESC or ASC",
+            "required": false
+          },
+          {
+            "name": "powerId",
+            "in": "path",
+            "type": "number",
+            "description": "Order option for powerId - DESC or ASC",
+            "required": false
+          },
+          {
+            "name": "attributeName",
+            "in": "path",
+            "type": "number",
+            "description": "Filter option for attributeName",
+            "required": false
+          },
+          {
+            "name": "alignment",
+            "in": "path",
+            "type": "number",
+            "description": "Filter option for alignment",
+            "required": false
+          },
+          {
+            "name": "powerName",
+            "in": "path",
+            "type": "number",
+            "description": "Filter option for powerName",
+            "required": false
+          },
+          {
+            "name": "publisher",
+            "in": "path",
+            "type": "number",
+            "description": "Filter option for publisher",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "currentPage": {
+                  "type": "number",
+                  "example": 1
+                },
+                "totalItems": {
+                  "type": "number",
+                  "example": 750
+                },
+                "totalPages": {
+                  "type": "number",
+                  "example": 750
+                },
+                "content": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "superheroName": {
+                        "type": "string",
+                        "example": "3-D Man"
+                      },
+                      "fullName": {
+                        "type": "string",
+                        "example": "Charles Chandler"
+                      },
+                      "heightCm": {
+                        "type": "number",
+                        "example": 188
+                      },
+                      "weightKg": {
+                        "type": "number",
+                        "example": 90
+                      },
+                      "gender": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "example": 1
+                          },
+                          "gender": {
+                            "type": "string",
+                            "example": "Male"
+                          }
+                        }
+                      },
+                      "eyeColour": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "example": 9
+                          },
+                          "colour": {
+                            "type": "string",
+                            "example": "Brown"
+                          }
+                        }
+                      },
+                      "hairColour": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "example": 13
+                          },
+                          "colour": {
+                            "type": "string",
+                            "example": "Grey"
+                          }
+                        }
+                      },
+                      "skinColour": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "example": 1
+                          },
+                          "colour": {
+                            "type": "string",
+                            "example": "No Colour"
+                          }
+                        }
+                      },
+                      "race": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "example": 1
+                          },
+                          "race": {
+                            "type": "string",
+                            "example": "-"
+                          }
+                        }
+                      },
+                      "publisher": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "example": 13
+                          },
+                          "publisher": {
+                            "type": "string",
+                            "example": "Marvel Comics"
+                          }
+                        }
+                      },
+                      "alignment": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "example": 1
+                          },
+                          "alignment": {
+                            "type": "string",
+                            "example": "Good"
+                          }
+                        }
+                      },
+                      "heroAttributes": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "number",
+                              "example": 3116
+                            },
+                            "attributeValue": {
+                              "type": "number",
+                              "example": 45
+                            },
+                            "attribute": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "number",
+                                  "example": 6
+                                },
+                                "attributeName": {
+                                  "type": "string",
+                                  "example": "Combat"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "superpowers": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "number",
+                              "example": 31
+                            },
+                            "powerName": {
+                              "type": "string",
+                              "example": "Super Speed"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/superhero/{id}": {
+      "get": {
+        "tags": [
+          "Superhero"
+        ],
+        "summary": "Fetches a Superhero by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "number",
+            "description": "Superhero's ID"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 10
+                },
+                "superheroName": {
+                  "type": "string",
+                  "example": "NewHeroName"
+                },
+                "fullName": {
+                  "type": "string",
+                  "example": "NewHeroFullName"
+                },
+                "heightCm": {
+                  "type": "number",
+                  "example": 100
+                },
+                "weightKg": {
+                  "type": "number",
+                  "example": 50
+                },
+                "gender": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "gender": {
+                      "type": "string",
+                      "example": "Male"
+                    }
+                  }
+                },
+                "eyeColour": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "colour": {
+                      "type": "string",
+                      "example": "No Colour"
+                    }
+                  }
+                },
+                "hairColour": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 2
+                    },
+                    "colour": {
+                      "type": "string",
+                      "example": "Amber"
+                    }
+                  }
+                },
+                "skinColour": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 3
+                    },
+                    "colour": {
+                      "type": "string",
+                      "example": "Auburn"
+                    }
+                  }
+                },
+                "race": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "race": {
+                      "type": "string",
+                      "example": "-"
+                    }
+                  }
+                },
+                "publisher": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "publisher": {
+                      "type": "string",
+                      "example": ""
+                    }
+                  }
+                },
+                "alignment": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "alignment": {
+                      "type": "string",
+                      "example": "Good"
+                    }
+                  }
+                },
+                "heroAttributes": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 3741
+                      },
+                      "attributeValue": {
+                        "type": "number",
+                        "example": 50
+                      }
+                    }
+                  }
+                },
+                "superpowers": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 2
+                      },
+                      "powerName": {
+                        "type": "string",
+                        "example": "Accelerated Healing"
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Superhero"
+        ],
+        "summary": "Updates an existing Superhero",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "number",
+            "description": "Superhero's ID"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "superheroName": {
+                  "type": "string",
+                  "example": "UpdatedHeroName"
+                },
+                "fullName": {
+                  "type": "string",
+                  "example": "UpdatedHeroFullName"
+                },
+                "heightCm": {
+                  "type": "number",
+                  "example": 100
+                },
+                "weightKg": {
+                  "type": "number",
+                  "example": 50
+                },
+                "gender": {
+                  "type": "number",
+                  "example": 1
+                },
+                "eyeColour": {
+                  "type": "number",
+                  "example": 1
+                },
+                "hairColour": {
+                  "type": "number",
+                  "example": 2
+                },
+                "skinColour": {
+                  "type": "number",
+                  "example": 3
+                },
+                "race": {
+                  "type": "number",
+                  "example": 1
+                },
+                "publisher": {
+                  "type": "number",
+                  "example": 1
+                },
+                "alignment": {
+                  "type": "number",
+                  "example": 1
+                },
+                "superpowers": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "powerId": {
+                        "type": "number",
+                        "example": 2
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Superhero updated successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Superhero"
+        ],
+        "summary": "Deletes a Superhero by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "number",
+            "description": "Superhero's ID"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Superhero deleted successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/superhero/battle": {
+      "post": {
+        "tags": [
+          "Superhero"
+        ],
+        "summary": "Creates a battle between Superheros based on Publisher",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "publisherOne": {
+                  "type": "number",
+                  "example": 5
+                },
+                "publisherTwo": {
+                  "type": "number",
+                  "example": 6
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "example": [
+                "Winner in Combat attribute was Birdman with a value of 70 | (Hanna-Barbera)",
+                "Winner in Durability attribute was Birdman with a value of 70 | (Hanna-Barbera)",
+                "Winner in Intelligence attribute was Yoda with a value of 95 | (George Lucas)",
+                "Winner in Power attribute was Birdman with a value of 70 | (Hanna-Barbera)",
+                "Winner in Speed attribute was Birdman with a value of 70 | (Hanna-Barbera)",
+                "Winner in Strength attribute was Birdman with a value of 55 | (Hanna-Barbera)"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     }
   }

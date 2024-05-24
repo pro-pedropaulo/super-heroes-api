@@ -7,7 +7,7 @@ const config: Config = {
   testMatch: ['**/tests/unit/**/*.spec.ts'],
   moduleNameMapper: {
     '@/(.+)': '<rootDir>/src/$1',
-    '^mongoose$': '<rootDir>/__mocks__/mongoose.ts', // Certifique-se que o caminho está correto
+    '^mongoose$': '<rootDir>/__mocks__/mongoose.ts',
   },
   testTimeout: 20000,
 };
