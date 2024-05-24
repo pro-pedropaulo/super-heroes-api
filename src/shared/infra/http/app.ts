@@ -24,16 +24,16 @@ const app = express();
 app.use(express.json());
 
 app.use('/api/users', UsersRouter);
-app.use('/api/auth', AuthenticationRouter);
-app.use('/api/alignments', isAuth, AlignmentRouter);
-app.use('/api/attributes', isAuth, AttributeRouter);
-app.use('/api/colours', isAuth, ColourRouter);
-app.use('/api/genders', isAuth, GenderRouter);
-app.use('/api/races', isAuth, RaceRouter);
-app.use('/api/superheroes', isAuth, SuperheroRouter);
-app.use('/api/publishers', isAuth, PublisherRouter);
-app.use('/api/superpowers', isAuth, SuperpowerRouter);
-app.use('/api/hero-attributes', isAuth, HeroAttributeRouter);
+app.use('/api/login', AuthenticationRouter);
+app.use('/api/alignment', isAuth, AlignmentRouter);
+app.use('/api/attribute', isAuth, AttributeRouter);
+app.use('/api/colour', isAuth, ColourRouter);
+app.use('/api/gender', isAuth, GenderRouter);
+app.use('/api/race', isAuth, RaceRouter);
+app.use('/api/superhero', isAuth, SuperheroRouter);
+app.use('/api/publisher', isAuth, PublisherRouter);
+app.use('/api/superpower', isAuth, SuperpowerRouter);
+app.use('/api/hero-attribute', isAuth, HeroAttributeRouter);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
