@@ -16,7 +16,7 @@ Bem-vindo à Super Heroes API! Este projeto oferece um conjunto robusto de funci
 - [Comandos para Rodar o Projeto Localmente](#comandos-para-rodar-o-projeto-localmente)
 - [Testes com Postman](#testes-com-postman)
 - [Implementações AWS](#implementações-aws)
-- [Vídeo de Apresentação do Projeto](#vídeo-de-apresentação-do-projeto)
+- [Vídeo de Apresentação do Projeto](#video-de-apresentaçao-do-projeto)
 - [Melhorias Futuras](#melhorias-futuras)
 
 ## Tecnologias Utilizadas
@@ -83,6 +83,12 @@ Instalar as dependências
 
 ```
 npm install
+```
+
+Criar banco de dados no postgres
+
+```
+superheroes
 ```
 
 Rodar as migrations:
