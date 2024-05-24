@@ -1,10 +1,11 @@
 import { z } from 'zod';
 
-import { AbstractDTO } from '../../../shared/dtos/AbstractDTO';
+import { AbstractDTO } from '@/shared/dtos/AbstractDTO';
 
 const createSuperheroBattleSchema = z.object({
   publisherOne: z.number(),
   publisherTwo: z.number(),
+  attribute: z.string().optional(),
 });
 
 export class CreateSuperheroBattleDTO extends AbstractDTO<

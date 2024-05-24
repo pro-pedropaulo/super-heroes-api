@@ -413,7 +413,8 @@ SuperheroRouter.post(
       in: 'body',
       schema: {
         "publisherOne": 5,
-        "publisherTwo": 6
+        "publisherTwo": 6,
+        "attribute": "Strength"
       }
     }
     #swagger.responses[200] = {
