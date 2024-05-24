@@ -16,10 +16,6 @@ const entitiesFolders = [
 const migrationsFolder = `${prefixFolder}/shared/infra/typeorm/migrations/**/*{.ts,.js}`;
 const seedsFolder = `${prefixFolder}/shared/infra/typeorm/seeds/**/*{.ts,.js}`;
 
-console.log('Entities Folder:', entitiesFolders);
-console.log('Migrations Folder:', migrationsFolder);
-console.log('Seeds Folder:', seedsFolder);
-
 const options: DataSourceOptions & SeederOptions = {
   type: 'postgres',
   host: process.env.DB_HOST,

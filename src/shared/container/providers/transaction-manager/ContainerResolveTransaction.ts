@@ -21,7 +21,6 @@ class ContainerResolveTransaction<T extends AbstractService> {
   ) {}
 
   public execute(...data: Parameters<T['execute']>) {
-    console.log('Executing transaction...');
     return this.transactionManager.runInsideATransaction(() =>
       this.token.execute(...data),
     );
