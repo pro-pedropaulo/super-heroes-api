@@ -318,15 +318,25 @@ export class SuperheroService {
       }
     });
 
-    return publisherWinCounts;
+    return {
+      [results[0].heroOnePublisher]:
+        publisherWinCounts[results[0].heroOnePublisher] || 0,
+      [results[0].heroTwoPublisher]:
+        publisherWinCounts[results[0].heroTwoPublisher] || 0,
+    };
   }
 
   private determineOverallPublisherWinner(publisherWinCounts: {
     [publisher: string]: number;
   }): { winner: string } {
     const publishers = Object.keys(publisherWinCounts);
+    if (publishers.length === 0) {
+      return { winner: 'No winners' };
+    }
+
     const winner =
-      publisherWinCounts[publishers[0]] > publisherWinCounts[publishers[1]]
+      publisherWinCounts[publishers[0]] >=
+      (publisherWinCounts[publishers[1]] || 0)
         ? publishers[0]
         : publishers[1];
 

@@ -36,7 +36,7 @@ export class PublisherService {
   }
 
   async update(data: UpdatePublisher) {
-    await this.findById(data.id); // Verificar se o publisher existe
+    await this.findById(data.id);
     return await this.publisherRepository.update(data);
   }
 }

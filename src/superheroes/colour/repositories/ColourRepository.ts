@@ -1,8 +1,8 @@
 import { injectable } from 'tsyringe';
 
 import { Colour } from '../entities/Colour';
-import { CreateColour } from '../dtos//CreateColourDTO';
-import { UpdateColour } from '../dtos//UpdateColourDTO';
+import { CreateColour } from '../dtos/CreateColourDTO';
+import { UpdateColour } from '../dtos/UpdateColourDTO';
 
 import type { IColourRepository } from './IColourRepository';
 
